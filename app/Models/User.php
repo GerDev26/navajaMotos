@@ -49,15 +49,6 @@ class User extends Authenticatable
 
     //filters
 
-    public function scopeNameAsc(Builder $query)
-    {
-        return $query->orderBy('name', 'asc');
-    }
-    
-    public function scopeNameDesc(Builder $query)
-    {
-        return $query->orderBy('name', 'desc');
-    }
     public function scopeEmailAsc(Builder $query)
     {
         return $query->orderBy('email', 'asc');
@@ -67,6 +58,4 @@ class User extends Authenticatable
     {
         return $query->orderBy('email', 'desc');
     }
-
-
 }

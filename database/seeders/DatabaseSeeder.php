@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use App\Models\Replacement;
 use App\Models\User;
+use App\Models\VehicleModel;
+use App\Models\Work;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,9 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-
-        User::factory()->create([
-            'email' => 'test@example.com',
-        ]);
+        Work::factory(10)->create();
+        Replacement::factory(10)->create();
+        VehicleModel::factory(10)->create();
+        Customer::factory(10)->create();
     }
 }

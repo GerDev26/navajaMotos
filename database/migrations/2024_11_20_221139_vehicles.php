@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_models', function(Blueprint $table){
+        Schema::create('vehicles_models', function(Blueprint $table){
             $table->id();
             $table->string('description');
+            $table->timestamps();
         });
 
         Schema::create('vehicles', function(Blueprint $table){
@@ -24,7 +25,7 @@ return new class extends Migration
 
             $table->foreign('vehicle_id')
                   ->references('id')
-                  ->on('vehicle_models')
+                  ->on('vehicles_models')
                   ->onDelete('set null')
                   ->onUpdate('set null');
         });
