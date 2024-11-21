@@ -1,0 +1,9 @@
+[
+    { "description": "Carburacion" },
+    { "description": "Cambio de aceite" },
+    { "description": "Service" },
+    { "description": "Transmision" },
+    { "description": "Cambio de cadena de distribucion" },
+    { "description": "Cambio de frenos" },
+    { "description": "Electricidad" }
+]

@@ -20,6 +20,7 @@ return new class extends Migration
         Schema::create('replacements_invoices', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('replacement_id')->nullable();
+            $table->unsignedBigInteger('invoice_id')->nullable();
             $table->float('unit_price');
             $table->integer('quantity');
             $table->timestamps();
@@ -27,6 +28,12 @@ return new class extends Migration
             $table->foreign('replacement_id')
                   ->references('id')
                   ->on('replacements')
+                  ->onDelete('set null')
+                  ->onUpdate('set null');
+            
+            $table->foreign('invoice_id')
+                  ->references('id')
+                  ->on('invoices')
                   ->onDelete('set null')
                   ->onUpdate('set null');
         });

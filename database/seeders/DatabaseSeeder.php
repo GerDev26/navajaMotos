@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
-use App\Models\Replacement;
 use App\Models\User;
 use App\Models\VehicleModel;
 use App\Models\Work;
@@ -18,9 +17,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        Work::factory(10)->create();
-        Replacement::factory(10)->create();
-        VehicleModel::factory(10)->create();
         Customer::factory(10)->create();
+        $this->call(VehicleSeeder::class);
+        $this->call(ReplacementSeeder::class);
+        $this->call(WorkSeeder::class);
     }
 }

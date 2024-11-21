@@ -20,12 +20,19 @@ return new class extends Migration
         Schema::create('works_invoices', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('work_id')->nullable();
+            $table->unsignedBigInteger('invoice_id')->nullable();
             $table->float('unit_price');
             $table->timestamps();
 
             $table->foreign('work_id')
                   ->references('id')
                   ->on('works')
+                  ->onDelete('set null')
+                  ->onUpdate('set null');
+                  
+            $table->foreign('invoice_id')
+                  ->references('id')
+                  ->on('invoices')
                   ->onDelete('set null')
                   ->onUpdate('set null');
         });
