@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class CustomerService {
-    public static function get_filtered_customers(Request $request)
+    public static function get_filtered(Request $request)
     {
         $filters = new CustomerFilter();
         $queryItems = $filters->transform($request);

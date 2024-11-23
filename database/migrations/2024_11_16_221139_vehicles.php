@@ -21,9 +21,10 @@ return new class extends Migration
             $table->id();
             $table->string('domain')->nullable();
             $table->string('green_card')->nullable();
-            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->unsignedBigInteger('vehicle_model_id')->nullable();
+            $table->timestamps();
 
-            $table->foreign('vehicle_id')
+            $table->foreign('vehicle_model_id')
                   ->references('id')
                   ->on('vehicles_models')
                   ->onDelete('set null')
