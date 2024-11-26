@@ -14,19 +14,25 @@ return new class extends Migration
         Schema::create('vehicles_models', function(Blueprint $table){
             $table->id();
             $table->string('description');
-            $table->timestamps();
         });
 
         Schema::create('vehicles', function(Blueprint $table){
             $table->id();
-            $table->string('domain')->nullable();
+            $table->string('domain');
             $table->string('green_card')->nullable();
             $table->unsignedBigInteger('vehicle_model_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
 
             $table->foreign('vehicle_model_id')
                   ->references('id')
                   ->on('vehicles_models')
+                  ->onDelete('set null')
+                  ->onUpdate('set null');
+
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
                   ->onDelete('set null')
                   ->onUpdate('set null');
         });

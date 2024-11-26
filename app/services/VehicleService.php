@@ -1,16 +1,17 @@
 <?php
-
 namespace App\Services;
 
 use App\Filters\VehicleFilter;
+use App\Filters\VehicleModelFilter;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
 use Illuminate\Http\Request;
 
 class VehicleService {
+
     public static function get_models(Request $request)
     {
-        $filters = new VehicleFilter();
+        $filters = new VehicleModelFilter();
         $queryItems = $filters->transform($request);
         [$order, $query] = $filters->order($request);
 
@@ -19,55 +20,72 @@ class VehicleService {
         }
         return VehicleModel::where($queryItems)->orderBy($order, $query)->get();
     }
-    public static function new_vehicle(Request $request){
 
-        $vehicle = new Vehicle();
-        $existModel = self::exist_model($request->model); //No devuelve bien la condicion
-        $model = self::get_model_by_desc($request->model);
-        return $model;
-        if(!$existModel){
-            $vehicle->vehicle_model_id = $model->id;
-            return 'existe';
-        } else {
-            $model = self::new_model($request->model);
-            return 'no existe';
-            $vehicle->vehicle_model_id = $model->id;
+    public static function get_vehicles(Request $request){
+        $filters = new VehicleFilter();
+        $queryItems = $filters->transform($request);
+        [$order, $query] = $filters->order($request);
+
+        if(!$queryItems) {
+            return Vehicle::select()->orderBy($order, $query)->paginate(6);
         }
+        return Vehicle::where($queryItems)->orderBy($order, $query)->get();
+    }
 
-
+    public static function new_vehicle($request){
+        
+        $model = self::find_or_create_model($request->model);
+        $vehicle = new Vehicle();
+        $vehicle->vehicle_model_id = $model->id;
         $vehicle->green_card = $request->green_card ?? null;
         $vehicle->domain = $request->domain ?? null;
+        $vehicle->user_id = $request->user_id;
 
         $vehicle->save();
 
-        if(!$vehicle){
-            return response()->json(['error' => 'No se pudo guardar el vehiculo'], 400);
+        if(!$vehicle) {
+            throw new \Exception('The vehicle could not be saved');
         }
 
         return $vehicle;
     }
-    private static function exist_model(string $model){
-        $affectedRows = VehicleModel::where('description', $model)->count();
-        return $affectedRows > 0 ? true : false;
+
+    public static function find_or_create_model(string $model): VehicleModel{
+        $existModel = self::exist_model($model);
+        
+        if($existModel){
+            return self::get_model_by_desc($model);
+        }
+
+        return self::new_model($model);
     }
 
-    private static function new_model($newModel){
+    public static function exist_vehicle(string $domain)
+    {
+        return Vehicle::where('domain', $domain)->exists();
+    }
+
+    public static function exist_model(string $model): bool{
+        return VehicleModel::where('description', $model)->exists();
+    }
+
+    public static function new_model(string $modelDesc): VehicleModel{
         $model = new VehicleModel();
-        $model->description = $newModel;
+        $model->description = $modelDesc;
         $model->save();
 
         if(!$model){
-            return response()->json(['error' => 'No se pudo guardar el modelo'], 400);
+            throw new \Exception('The model could not be saved');
         }
 
         return $model;
     }
 
-    private static function get_model_by_desc($desc){
+    public static function get_model_by_desc(string $desc): VehicleModel{
         $model = VehicleModel::where('description', $desc)->first();
         
         if(!$model){
-            return response()->json(['error' => 'No se pudo guardar el modelo'], 400);
+            throw new \Exception('The model was not found');
         }
 
         return $model;

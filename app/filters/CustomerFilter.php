@@ -5,8 +5,8 @@ use App\Filters\ApiFilter;
 
 class CustomerFilter extends ApiFilter {
     protected $queryParams = [
-        'id' => ['eq', 'like'],
-        'name' => ['eq', 'like'],
+        'id' => ['eq'],
+        'username' => ['eq', 'like'],
         'created_at' => ['eq', 'lt', 'lte', 'gt', 'gte'],
     ];
     protected $columnMap = [

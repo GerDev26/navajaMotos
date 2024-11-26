@@ -1,17 +1,8 @@
 [
-    { "description": "Bajaj" },
-    { "description": "Yamaha" },
-    { "description": "Honda" },
-    { "description": "Motomel" },
-    { "description": "Suzuki" },
-    { "description": "Kawasaki" },
-    { "description": "Ducati" },
-    { "description": "Harley-Davidson" },
-    { "description": "Triumph" },
-    { "description": "Royal Enfield" },
-    { "description": "KTM" },
-    { "description": "Aprilia" },
-    { "description": "Vespa" },
-    { "description": "MV Agusta" },
-    { "description": "BMW Motorrad" }
+    { "description": "Boxer 150" },
+    { "description": "XTZ 150" },
+    { "description": "Titan 150" },
+    { "description": "Mondial 150" },
+    { "description": "Zanella 150" },
+    { "description": "Corven Energy 110" }
 ]

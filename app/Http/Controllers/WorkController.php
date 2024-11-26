@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehicle;
-use App\Services\VehicleService;
+use App\Services\WorkService;
 use Illuminate\Http\Request;
 
-class VehicleController extends Controller
+class WorkController extends Controller
 {
     public function index(Request $request)
     {
-        $vehicles = VehicleService::get_vehicles($request);
+        $vehicles = WorkService::get_works($request);
         return response()->json($vehicles, 200);
     }
-    public function models_index(Request $request){
-        $vehicles = VehicleService::get_models($request);
+    public function invoice_work_index(Request $request){
+        $vehicles = WorkService::get_invoice_work($request);
         return response()->json($vehicles, 200);
     }
     public function store(Request $request)
     {
         try{
-            $vehicles = VehicleService::new_vehicle($request);
+            $vehicles = WorkService::new_invoice_work($request);
             return $vehicles;
         } catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
-    
 }

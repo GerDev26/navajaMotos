@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VehicleModel extends Model
 {
     use HasFactory;
-    public $timestamps = true;
+    public $timestamps = false;
     public $table = 'vehicles_models';
 }

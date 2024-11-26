@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('replacements', function(Blueprint $table){
             $table->id();
             $table->string('description');
-            $table->timestamps();
         });
 
         Schema::create('replacements_invoices', function(Blueprint $table){

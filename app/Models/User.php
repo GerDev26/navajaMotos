@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -33,6 +35,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
 
     /**
      * Get the attributes that should be cast.
@@ -46,16 +49,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    //filters
-
-    public function scopeEmailAsc(Builder $query)
+    public static function customerFactory()
     {
-        return $query->orderBy('email', 'asc');
-    }
-    
-    public function scopeEmailDesc(Builder $query)
-    {
-        return $query->orderBy('email', 'desc');
+        return \Database\Factories\CustomerFactory::new();
     }
 }
