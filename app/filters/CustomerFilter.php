@@ -7,6 +7,7 @@ class CustomerFilter extends ApiFilter {
     protected $queryParams = [
         'id' => ['eq'],
         'username' => ['eq', 'like'],
+        'email' => ['eq', 'like'],
         'created_at' => ['eq', 'lt', 'lte', 'gt', 'gte'],
     ];
     protected $columnMap = [

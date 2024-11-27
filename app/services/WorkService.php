@@ -38,7 +38,7 @@ class WorkService {
         $invoiceWork = new WorkInvoice();
         $invoiceWork->work_id = $work->id;
         $invoiceWork->invoice_id = $request->invoice_id;
-        $invoiceWork->unit_price = $request->unit_price;
+        $invoiceWork->unit_price = $request->unitPrice;
 
         $invoiceWork->save();
 

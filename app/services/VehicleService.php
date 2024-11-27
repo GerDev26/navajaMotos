@@ -37,7 +37,7 @@ class VehicleService {
         $model = self::find_or_create_model($request->model);
         $vehicle = new Vehicle();
         $vehicle->vehicle_model_id = $model->id;
-        $vehicle->green_card = $request->green_card ?? null;
+        $vehicle->green_card = $request->greenCard ?? null;
         $vehicle->domain = $request->domain ?? null;
         $vehicle->user_id = $request->user_id;
 
@@ -45,6 +45,16 @@ class VehicleService {
 
         if(!$vehicle) {
             throw new \Exception('The vehicle could not be saved');
+        }
+
+        return $vehicle;
+    }
+
+    public static function get_vehicle_by_domain(string $domain){
+        $vehicle = Vehicle::where('domain', $domain)->first();
+        
+        if(!$vehicle){
+            throw new \Exception('The vehicle was not found');
         }
 
         return $vehicle;

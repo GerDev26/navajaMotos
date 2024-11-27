@@ -27,37 +27,4 @@ class InvoiceService extends UserService {
 
         return $invoice;
     }
-    public static function customStore(Request $request){
-        try{
-            $invoice = self::new_invoice();
-            $customerService = new CustomerService();
-            $customer = $customerService->find_or_create_user($request->username);
-
-            $vehicles = collect($request->vehicles);
-            $works = collect($request->works);
-            $replacements = collect($request->replacements);
-            
-            foreach ($vehicles as $vehicle) {
-                $vehicle->user_id = $customer->id;
-                VehicleService::new_vehicle(collect($vehicle));
-            }
-
-            foreach ($works as $work) {
-                $work->user_id = $customer->id;
-                $work->invoice_id = $invoice->id;
-                WorkService::new_invoice_work(collect($work));
-            }
-
-            foreach ($replacements as $replacement) {
-                $replacement->user_id = $customer->id;
-                $replacement->invoice_id = $invoice->id;
-                ReplacementService::new_invoice_replacement($replacement);
-            }
-            $invoice->user_id = $customer->id;
-            $invoice->vehicle_id = 1;
-            $invoice->total_proce = 2000;
-        } catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
-    }
 }

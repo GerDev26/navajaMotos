@@ -18,7 +18,7 @@ return new class extends Migration
 
         Schema::create('vehicles', function(Blueprint $table){
             $table->id();
-            $table->string('domain');
+            $table->string('domain', 7)->unique();
             $table->string('green_card')->nullable();
             $table->unsignedBigInteger('vehicle_model_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ReplacementController;
 use App\Http\Controllers\TextController;
@@ -35,5 +36,5 @@ Route::group(['prefix' => '/replacement'], function() {
 });
 
 
-Route::post('/custom', [InvoiceController::class, 'storeCustom']);
+Route::post('/invoiceForm', [FormController::class, 'invoice_form']);
 

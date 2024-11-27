@@ -15,8 +15,4 @@ class InvoiceController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
-    public function storeCustom(Request $request)
-    {
-        return InvoiceService::customStore($request);
-    }
 }

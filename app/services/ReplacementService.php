@@ -41,7 +41,7 @@ class ReplacementService
         $invoiceReplacement = new ReplacementInvoice();
         $invoiceReplacement->replacement_id = $replacement->id;
         $invoiceReplacement->invoice_id = $request->invoice_id;
-        $invoiceReplacement->unit_price = $request->unit_price;
+        $invoiceReplacement->unit_price = $request->unitPrice;
         $invoiceReplacement->quantity = $request->quantity;
 
         $invoiceReplacement->save();
@@ -92,11 +92,5 @@ class ReplacementService
 
         return $replacement;
     }
-    public static function new_replacement_collection(array | object $replacements){
-
-        return collect($replacements)->map(function ($replacement) {
-            return ReplacementService::new_invoice_replacement($replacement);
-        });
-    }
-    
+  
 }
