@@ -20,9 +20,11 @@ Route::group(['prefix' => '/vehicle'], function() {
 });
 Route::group(['prefix' => '/customer'], function() {
     Route::post('/', [CustomerController::class, 'store']);
+    Route::post('/vcf', [CustomerController::class, 'charge_customers_from_vcf']);
 });
 Route::group(['prefix' => '/invoice'], function() {
     Route::post('/', [InvoiceController::class, 'store']);
+    Route::get('/pdf/{id}', [InvoiceController::class, 'get_pdf']);
 });
 Route::group(['prefix' => '/work'], function() {
     Route::post('/', [WorkController::class, 'store']);

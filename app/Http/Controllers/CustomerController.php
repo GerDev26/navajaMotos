@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CustomerService;
+use App\Services\VcfService;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -19,5 +20,8 @@ class CustomerController extends Controller
         } catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], 400);
         }
+    }
+    public function charge_customers_from_vcf(Request $request){
+        return response()->json(VcfService::get_contacts_from_file($request->vcf_file), 200);
     }
 }

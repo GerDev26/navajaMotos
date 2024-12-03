@@ -8,7 +8,7 @@ trait HasSeparatedTimestamp
     protected function date(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => date('Y-m-d', strtotime($attributes['timestamp'])),
+            get: fn ($value, $attributes) => date('Y-m-d', strtotime($attributes['created_at'])),
             set: fn ($value, $attributes) => date('Y-m-d H:i:s', strtotime($value . ' ' . ($attributes['time'] ?? '00:00:00')))
         );
     }
@@ -16,7 +16,7 @@ trait HasSeparatedTimestamp
     protected function time(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => date('H:i:s', strtotime($attributes['timestamp'])),
+            get: fn ($value, $attributes) => date('H:i:s', strtotime($attributes['created_at'])),
             set: fn ($value, $attributes) => date('Y-m-d H:i:s', strtotime(($attributes['date'] ?? now()->format('Y-m-d')) . ' ' . $value))
         );
     }

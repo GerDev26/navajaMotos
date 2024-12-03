@@ -99,7 +99,7 @@ class FormService
         $invoice->user_id = $customer->id;
         $invoice->vehicle_id = $selectedVehicle->id;
 
-        $invoice->total_price = $invoice->get_work_price() + $invoice->get_replacement_price();
+        $invoice->total_price = $invoice->get_work_total_price() + $invoice->get_replacement_total_price();
         $invoice->save();
     }
 }

@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Vehicle;
 use App\Services\InvoiceService;
+use App\Services\PdfService;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    public function store(Request $request){
-        try {
-            return InvoiceService::new_invoice($request);
-        } catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+    public function get_pdf($id){
+        $Invoice = Invoice::find($id);
+        return PdfService::get_invoice_pdf([
+            'customer' => $Invoice->user,
+            'vehicle' => $Invoice->vehicle,
+            'invoice_works' => $Invoice->get_works(),
+            'invoice_replacements' => $Invoice->get_replacements(),
+            'date' => $Invoice->date,
+            'total_price' => $Invoice->total_price,
+        ]);
     }
 }
