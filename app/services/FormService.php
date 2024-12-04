@@ -35,7 +35,7 @@ class FormService
             self::process_replacements($request->replacements, $customer, $invoice);
 
             //creao la factura asignandole el vehiculo seleccionado 
-            self::finalize_invoice($invoice, $customer, $selectedVehicle);
+            self::finalize_invoice($invoice, $customer, $selectedVehicle, $request->advancement);
 
             return $invoice;
         } catch (Exception $e) {
@@ -94,10 +94,11 @@ class FormService
         }
     }
 
-    private static function finalize_invoice($invoice, $customer, $selectedVehicle)
+    private static function finalize_invoice($invoice, $customer, $selectedVehicle, $advancement)
     {
         $invoice->user_id = $customer->id;
         $invoice->vehicle_id = $selectedVehicle->id;
+        $invoice->advancement = $advancement ?? 0;
 
         $invoice->total_price = $invoice->get_work_total_price() + $invoice->get_replacement_total_price();
         $invoice->save();

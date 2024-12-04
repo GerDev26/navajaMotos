@@ -6,17 +6,18 @@ use App\Models\User;
 use App\Models\Vehicle;
 use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class UserService {
 
     protected int $role;
 
-    public function find_or_create_user(string $userName){
-        $existUser = self::exist_user($userName);
+    public function find_or_create_user(object $newUser){
+        $existUser = self::exist_user($newUser->username);
         if ($existUser) {
-            return self::get_user_by_name($userName);
+            return self::get_user_by_name($newUser->username);
         }
-        return self::new_unregistered_user($userName);
+        return self::new_unregistered_user($newUser);
     }
 
     public function exist_user(string $userName): bool {
@@ -26,12 +27,14 @@ class UserService {
         ])->exists();
     }
 
-    public function new_unregistered_user(string $userName): User {
+    public function new_unregistered_user(object $newUser): User {
         $faker = Faker::create();
         $user = new User();
-        $user->username = $userName;
+        $user->username = $newUser->username;
         $user->email = $faker->unique()->safeEmail();
         $user->password = $faker->password();
+        $user->name = $newUser->name ?? null;
+        $user->phone_number = $newUser->phone_number ?? null;
         $user->role_id = $this->role;
         $user->save();
 

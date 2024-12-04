@@ -27,9 +27,8 @@
     }
     
     header {
-      float: left; /* Header a la izquierda */
+      float: left;
     }
-    
     .client-info {
       float: right;
       text-align: left;
@@ -79,8 +78,20 @@
     footer {
       color: #13311c;
       text-align: right;
+      font-size: 18px;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 6px;
+    }
+    footer p:last-child {
       font-size: 20px;
-      margin-top: 20px;
+    }
+    .line{
+      width: 100%;
+      height: 1px;
+      background-color: #2f834a;
+      margin: 10px 0px 10px 0px;
     }
   </style>
 </head>
@@ -90,7 +101,7 @@
       <img style="float: left;" src="{{ public_path('images/logo.jpg') }}" alt="">
       <p class="client-info" style="text-align: right; width: 100%;">Fecha de emisión: <strong>{{$date}}</strong></p>
     </div>
-    <div class="clearfix" style="border-bottom: 1px solid #2f834a">
+    <div class="clearfix">
       <header>
         <p>Empresa: <strong>Navaja Motos</strong></p>
         <p>Direccion: <strong>Berazategui Calle 111 1655</strong></p>
@@ -102,6 +113,7 @@
         <p>Patente: <strong>{{$vehicle->domain}}</strong></p>
       </div>
     </div>
+    <div class="line"></div>
     <section>
       <h2>Repuestos</h2>
       <table>
@@ -109,7 +121,7 @@
           <tr>
             <th>Descripción</th>
             <th>Cantidad</th>
-            <th>Precio Unitario</th>
+            <th>Precio</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -131,7 +143,7 @@
         <thead>
           <tr>
             <th>Descripción</th>
-            <th>Total</th>
+            <th>Precio</th>
           </tr>
         </thead>
         <tbody>
@@ -145,7 +157,11 @@
       </table>
     </section>
     <footer>
-      <p>Total general: <strong>${{$total_price}}</strong></p>
+      <p>Subtotal: <strong>${{$total_price}}</strong></p>
+      <p>Adelanto: <strong>${{$advancement}}</strong></p>
+      <div class="line"></div>
+
+      <p>Total: <strong>${{$total_price - $advancement}}</strong></p>
     </footer>
   </div>
 </body>

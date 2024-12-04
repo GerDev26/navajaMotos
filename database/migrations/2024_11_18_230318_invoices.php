@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->float('total_price')->nullable();
+            $table->float('advancement')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

@@ -19,6 +19,7 @@ class InvoiceController extends Controller
             'invoice_replacements' => $Invoice->get_replacements(),
             'date' => $Invoice->date,
             'total_price' => $Invoice->total_price,
+            'advancement' => $Invoice->advancement
         ]);
     }
 }

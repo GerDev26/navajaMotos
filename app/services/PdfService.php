@@ -16,7 +16,8 @@ class PdfService {
             'invoice_replacements' => $invoice['invoice_replacements'],
             'date' => $invoice['date'],
             'total_price' => $invoice['total_price'],
-            'invoice_title' => $title
+            'invoice_title' => $title,
+            'advancement' => $invoice['advancement']
         ])->render();
 
         $pdf = Pdf::loadHTML($html);
