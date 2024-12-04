@@ -10,7 +10,9 @@ use App\Http\Controllers\WorkController;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+Route::get('/', function() {
+    return 'Documentacion';
+});
 Route::get('/customer', [CustomerController::class, 'get_customers']);
 
 Route::group(['prefix' => '/vehicle'], function() {
